@@ -40,8 +40,6 @@
     "random-js": "^1.0.8",
     "serve-static": "1.10.x",
     "underscore": "1.x.x"
-  },
-  "devDependencies": {
     "backbone": "1.x.x",
     "bootstrap": "3.x.x",
     "font-awesome": "4.x.x",
@@ -60,6 +58,9 @@
     "jquery": "2.x.x",
     "jquery.cookie": "1.x.x",
     "moment": "2.13.x",
-    "respond.js": "1.x.x"
+    "respond.js": "1.x.x"    
+  },
+  "devDependencies": {
+
   }
 }
