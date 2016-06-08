@@ -24,6 +24,12 @@ block body
               p.alert.alert-warning.alertmessage You have already voted.
             else if ipVotedAlready
               p.alert.alert-warning.alertmessage This IP address has already voted.
+            - var direct = 'https://www.facebook.com/sharer/sharer.php?u=https://votetimefcc.herokuapp.com/polls/' + url
+            if youVoted || votedAlready || ipVotedAlready 
+              a(href=direct target='_blank')
+                  div#share-buttons.facebook-share
+                    img(src='/media/facebook.png' class="facebook-share")
+                    |<span style="color:white; padding-left:35px">Share on Facebook</span>              
             else if !votedAlready
               form(action='', method='post', id="form")
                 // the following for/each statment is explained here: http://jade-lang.com/reference/iteration/
@@ -39,9 +45,14 @@ block body
                   div.radio.pollresults
                     label
                       input.custom(id="customAnswer", type="text" name="otherAnswer" placeholder='Type a custom answer here')
-                input(type='hidden' name="_csrf" value="#{csrfToken}")
-                input(type='submit',class='btn btn-primary form-submit',value='Submit',data-transition='fade', data-theme='c')
-                
+                div.submitbutton
+                  input(type='hidden' name="_csrf" value="#{csrfToken}")
+                  input(type='submit',class='btn btn-primary form-submit',value='Submit',data-transition='fade', data-theme='c')
+                a(href=direct target='_blank')
+                  div#share-buttons.facebook-share
+                    img(src='/media/facebook.png' class="facebook-share")
+                    |<span style="color:white; padding-left:35px">Share on Facebook</span>       
+
                 script.
                   $(document).ready(function(){
                     $('input[type="radio"]').click(function(){
@@ -67,7 +78,7 @@ block body
                       }
                     });
                   });
-                    
+        
                     
   
     div.col-sm-7

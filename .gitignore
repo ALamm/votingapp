@@ -3,9 +3,10 @@
 ; *.min.js
 ; *.min.js.map
 ; *.min.css
-.nodemonignore
-.gitignore
+; .gitignore
+; .nodemonignore
 .env
+package.json
 package_old.json
 server_old.js
 instructions.txt

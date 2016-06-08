@@ -33,7 +33,8 @@ exports.init = function(req, res){
             
             var question = docs[0].question;
             var answer = docs[0].answer;
-            var votes = docs[0].votes;   
+            var votes = docs[0].votes;  
+            var url = docs[0].url;
             
             // charting variables
             var labels = [];
@@ -66,7 +67,7 @@ exports.init = function(req, res){
                     // check if user has voted already
                     if (voterList.indexOf(req.user.username) !== -1) {
                         flag = true;
-                        res.render('polls/display',{votedAlready:true, question:question, data: chart.data});
+                        res.render('polls/display',{votedAlready:true, url:url, question:question, data: chart.data});
                         res.end();
                     } 
                 }
@@ -81,7 +82,7 @@ exports.init = function(req, res){
                 // if the user has visited then don't allow to vote again. 
                 if (ip.indexOf(vistedYet) !== -1) {
                     flag = true;
-                    res.render('polls/display',{votedAlready:true, question:question, data: chart.data});
+                    res.render('polls/display',{votedAlready:true, url:url, question:question, data: chart.data});
                     res.end();
                 }
             }
@@ -159,7 +160,7 @@ exports.init = function(req, res){
                                         }
                                     };
                                     // SEND THE UPDATED INFO TO THE JADE PAGE FOR RENDERING
-                                    res.render('polls/display', {question:question, answer:answer, votes:votes, youVoted:true, optionChosen:optionChosen, data:chart.data});
+                                    res.render('polls/display', {question:question, answer:answer, votes:votes, youVoted:true, url:url, optionChosen:optionChosen, data:chart.data});
                                 
                                 });
                             });
@@ -203,7 +204,7 @@ exports.init = function(req, res){
                                     }
                                 };
                                 // SEND THE UPDATED INFO TO THE JADE PAGE FOR RENDERING
-                                res.render('polls/display', {question:question, answer:answer, votes:votes, youVoted:true, optionChosen:otherAnswer, data:chart.data});
+                                res.render('polls/display', {question:question, answer:answer, votes:votes, youVoted:true, url:url, optionChosen:otherAnswer, data:chart.data});
                             
                             });
                         });   

@@ -25,6 +25,8 @@ exports.init = function(req, res){
             var question = docs[0].question;
             var answer = docs[0].answer;
             var votes = docs[0].votes;
+            var url = docs[0].url;
+            
             var labels = [];
                 for (var i = 0; i < answer.length; i++) {
                     labels.push(answer[i]);
@@ -57,22 +59,22 @@ exports.init = function(req, res){
             if (req.isAuthenticated()) {
                 // if user has voted already
                 if (voterList.indexOf(req.user.username) !== -1) {
-                    res.render('polls/display',{votedAlready:true, question:question, data: chart.data});
+                    res.render('polls/display',{votedAlready:true, question:question, url:url, data: chart.data});
                     res.end();
                 }
                 // if user is logged in, but hasn't voted
                 else {
-                    res.render('polls/display', {question:question, answer:answer, votes:votes, data: chart.data});
+                    res.render('polls/display', {question:question, answer:answer, votes:votes, url:url, data: chart.data});
                 }
             }
             // if user isn't logged in, check if they have voted already
             else if (ip.indexOf(vistedYet) !== -1) {
-                res.render('polls/display',{ipVotedAlready:true, question:question, data: chart.data});
+                res.render('polls/display',{ipVotedAlready:true, question:question, url:url, data: chart.data});
                 res.end();
             }
             // not logged in, and hasn't voted yet
             else {
-                res.render('polls/display', {question:question, answer:answer, votes:votes, data: chart.data});
+                res.render('polls/display', {question:question, answer:answer, votes:votes, url:url, data: chart.data});
             }
         }
         else {
