@@ -3,7 +3,6 @@ public/vendor/*
 *.min.js
 *.min.js.map
 *.min.css
-/config.js
 .nodemonignore
 .gitignore
 .env
