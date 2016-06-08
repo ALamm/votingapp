@@ -3,7 +3,7 @@
   "version": "0.18.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "start"
   },
   "author": "Reza Akhavan <jedireza@gmail.com> (http://reza.akhavan.me/)",
   "license": "MIT",
@@ -39,7 +39,7 @@
     "passport-twitter": "1.x.x",
     "random-js": "^1.0.8",
     "serve-static": "1.10.x",
-    "underscore": "1.x.x"
+    "underscore": "1.x.x",
     "backbone": "1.x.x",
     "bootstrap": "3.x.x",
     "font-awesome": "4.x.x",
