@@ -9,3 +9,4 @@ public/vendor/*
 .env
 package_old.json
 server_old.js
+instructions.txt
