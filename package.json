@@ -1,11 +1,11 @@
 {
-  "name": "Drywall",
-  "version": "0.18.0",
+  "name": "VoteTime",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "grunt"
+    "start": "node app.js"
   },
-  "author": "Reza Akhavan <jedireza@gmail.com> (http://reza.akhavan.me/)",
+  "author": "AlexanderL",
   "license": "MIT",
   "engines": {
     "node": ">=4.0.0"
