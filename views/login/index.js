@@ -2,6 +2,11 @@
 
 var getReturnUrl = function(req) {
   var returnUrl = req.user.defaultReturnUrl();
+  // ADDED THE FOLLOWING TO PREVENT user from being directed to ACCOUNT PAGE DIRECTLY AFTER LOGIN
+  // all other return url's are still honoured
+  if (returnUrl === '/account/') {
+    returnUrl = '/';
+  }
   if (req.session.returnUrl) {
     returnUrl = req.session.returnUrl;
     delete req.session.returnUrl;
@@ -12,6 +17,7 @@ var getReturnUrl = function(req) {
 exports.init = function(req, res){
   if (req.isAuthenticated()) {
     res.redirect(getReturnUrl(req));
+    // res.redirect('/');
   }
   else {
     res.render('login/index', {

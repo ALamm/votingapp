@@ -1,0 +1,24 @@
+extends ../../layouts/default
+
+block head
+  title Existing Polls
+
+block neck
+  link(rel='stylesheet', href='/views/about/index.min.css?#{cacheBreaker}')
+
+block body
+  div.row
+    div.col-sm-6
+      div.page-header
+        h1.jumbotron Check out the polls below
+        if !noPolls
+          div.list-group
+            // the following for/each statment is explained here: http://jade-lang.com/reference/iteration/
+            // all the following #{val} and #{index} variables are Jade's method of accessing local variables
+            // index.js performs the db query and the results are sent as an object called 'polls' 
+            each val, index in polls
+              div(id='#{val}')
+                p.list-group-item-text(class='poll-results', title="#{index}"): a.list-group-item(href='#{val}') #{index}
+        else
+          p.lead No Polls Yet!
+

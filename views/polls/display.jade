@@ -1,0 +1,106 @@
+extends ../../layouts/default
+
+block head
+  title Poll Results
+  
+block neck
+  link(rel='stylesheet', href='/views/about/index.min.css?#{cacheBreaker}')
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js')
+
+block body
+  div.row
+    div.col-sm-5
+      div.page-header
+        h1.mypolls.jumbotron What's the Question?
+        div
+          div
+            p.lead=question 
+          div
+            if youVoted
+              p.alert.alert-success.alertmessage Thanks for your vote! </br></br> You chose 
+                span.optionChosen #{optionChosen}
+            else if votedAlready 
+              p.alert.alert-warning.alertmessage You have already voted.
+            else if ipVotedAlready
+              p.alert.alert-warning.alertmessage This IP address has already voted.
+            else if !votedAlready
+              form(action='', method='post', id="form")
+                // the following for/each statment is explained here: http://jade-lang.com/reference/iteration/
+                // all the following #{val} and #{index} variables are Jade's method of accessing local variables that are strings
+                // if you want to access a passed object you must use !{JSON.stringify(data)}  - NOTE use of !{} as opposed to #{}
+                // index.js performs the db query and the results are sent as an object with key = 'answer' 
+                each val in answer
+                  div.radio.pollresults
+                      label
+                          input#optionsRadios1(type='radio', name='optionChosen', value='#{val}')
+                          span.spaceme #{val}
+                if user.username
+                  div.radio.pollresults
+                    label
+                      input.custom(id="customAnswer", type="text" name="otherAnswer" placeholder='Type a custom answer here')
+                input(type='hidden' name="_csrf" value="#{csrfToken}")
+                input(type='submit',class='btn btn-primary form-submit',value='Submit',data-transition='fade', data-theme='c')
+                
+                script.
+                  $(document).ready(function(){
+                    $('input[type="radio"]').click(function(){
+                      $(this).attr('checked', true);
+                    });
+                    $('#customAnswer').click(function() {
+                      $('input[type="radio"]').attr("checked", false);
+                    });
+                    function check() {
+                      var check = true;
+                      $('input[type="radio"]').each(function() { 
+                        if (this.checked === true) { 
+                          console.log('radio button checked ');
+                          check = false;
+                        }
+                      });
+                      return check;
+                    }
+                    $('#form').submit(function() {
+                      if ($('#customAnswer').val() === '' && check()) {
+                        alert ("You must select an answer.")
+                        return false;
+                      }
+                    });
+                  });
+                    
+                    
+  
+    div.col-sm-7
+      div.page-header
+        h1.mypolls.jumbotron.center Poll Results
+        div
+          canvas#myChart(width="400" height="400")
+          script.
+            $(document).ready(function(){
+              var ctx = document.getElementById("myChart");
+              var myChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: !{JSON.stringify(data)},  
+                  options: {
+                      scales: {
+                          yAxes: [{
+                              ticks: {
+                                  beginAtZero:true
+                              }
+                          }]
+                      },
+                      legend: {
+                          display: true,
+                          labels: {
+                              fontSize: 18
+                          }
+                      },                      
+                      legend: {
+                          display:true,
+                          labels: {
+                              fontSize: 18
+                          }
+                      }
+                  }
+              });
+            });

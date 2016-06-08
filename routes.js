@@ -4,6 +4,7 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
+  // if unauthenticated then direct to login page
   res.set('X-Auth-Required', 'true');
   req.session.returnUrl = req.originalUrl;
   res.redirect('/login/');
@@ -31,7 +32,20 @@ function ensureAccount(req, res, next) {
 exports = module.exports = function(app, passport) {
   //front end
   app.get('/', require('./views/index').init);
-  app.get('/about/', require('./views/about/index').init);
+  app.get('/polls/', require('./views/polls/index').init);
+  
+  // NOTE THE USE OF "ensureAuthenticated" function created at top of page - only authenticated users permitted
+  app.get('/mypolls/',ensureAuthenticated, require('./views/mypolls/index').init);
+  app.post('/mypolls/',ensureAuthenticated, require('./views/mypolls/createpoll').create);
+  app.delete('/mypolls/*',ensureAuthenticated, require('./views/mypolls/deletepoll').delete);
+  app.get('/mypolls/*',ensureAuthenticated, require('./views/polls/display').init);
+  app.post('/mypolls/*',ensureAuthenticated, require('./views/polls/vote').init);
+  
+  app.get('/polls/*', require('./views/polls/display').init);
+  app.post('/polls/*', require('./views/polls/vote').init);
+  
+
+  
   app.get('/contact/', require('./views/contact/index').init);
   app.post('/contact/', require('./views/contact/index').sendMessage);
 
@@ -141,7 +155,7 @@ exports = module.exports = function(app, passport) {
   //account
   app.all('/account*', ensureAuthenticated);
   app.all('/account*', ensureAccount);
-  app.get('/account/', require('./views/account/index').init);
+  app.get('/account/', require('./views/account/settings/index').init);
 
   //account > verification
   app.get('/account/verification/', require('./views/account/verification/index').init);

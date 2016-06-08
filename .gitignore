@@ -5,3 +5,7 @@ node_modules/*
 *.min.css
 /config.js
 .nodemonignore
+.gitignore
+.env
+package_old.json
+server_old.js

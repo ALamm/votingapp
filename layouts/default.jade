@@ -11,7 +11,7 @@ html
       div.container
         div.navbar-header
           a.navbar-brand(href='/')
-            img.navbar-logo(src='/media/logo-symbol-64x64.png', alt='Logo')
+            img.navbar-logo(src='/media/toggle.png', alt='Logo')
             span.navbar-brand-label #{projectName}
           button.navbar-toggle.collapsed(data-toggle='collapse', data-target='.my-navbar-collapse')
             span.icon-bar
@@ -20,18 +20,26 @@ html
         div.navbar-collapse.my-navbar-collapse.collapse
           ul.nav.navbar-nav
             li: a(href='/') Home
-            li: a(href='/about/') About
-            li: a(href='/signup/') Sign Up
-            li: a(href='/contact/') Contact
-          ul.nav.navbar-nav.navbar-right
+            li: a(href='/polls/') All Polls
             if user && user.username
-              li: a(href='#{user.defaultReturnUrl}')
-                i.fa.fa-user
-                |  #{user.username}
-            else
+              li: a(href='/mypolls/') My Polls
+            li: a(href='/contact/') Contact              
+          ul.nav.navbar-nav.navbar-right
+            // NOTE: originally to check if signed it read " if user && user.username "
+            if !user.username
+              li: a(href='/signup/') Sign Up
               li: a(href='/login/')
                 i.fa.fa-user
-                |  Sign In
+                |  Login
+            else
+              li.dropdown: a(href='#' class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") 
+                i.fa.fa-user
+                |  #{user.username} 
+                span.caret
+                ul.dropdown-menu
+                  li: a(href='/account/settings/') Account
+                  li: a(href='/logout/') Logout                
+
 
     div.page
       div.container
@@ -45,6 +53,13 @@ html
           li: a(href='/') Home
           li: a(href='/contact/') Contact
         div.clearfix
+      div.container.builtby
+          p This app is built by 
+            | <a href='https://www.freecodecamp.com/alamm'>@alamm</a> of freecodecamp, following the instructions of 
+            | <a href='https://www.freecodecamp.com/challenges/build-a-voting-app'>"Build a Voting App | Free Code Camp"</a>
+          p Github repository: 
+            | <a href='https://github.com/ALamm/votingapp'>ALamm/votingapp</a>
+      
 
     div.ajax-spinner
       img(src='/media/ajax-pulse.gif', alt='Loading')

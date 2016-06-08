@@ -1,0 +1,111 @@
+extends ../../layouts/default
+
+block head
+  title My Polls
+  style.
+    * {
+      .border-radius(0) !important;
+    }
+    #field {
+      margin-bottom:20px;
+    }
+
+  
+block neck
+  link(rel='stylesheet', href='/views/about/index.min.css?#{cacheBreaker}')
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js')
+  script.
+    $(document).ready(function(){
+      var next = 1;
+      $(".add-more").click(function(e){
+          e.preventDefault();
+          var addto = "#field" + next;
+          var addRemove = "#field" + (next);
+          next = next + 1;
+          var newIn = '<input autocomplete="off" id="field' + next + '" name="answer' + next + '" type="text">';
+          var newInput = $(newIn);
+          var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" type="button">-</button></div><div id="field">';
+          var removeButton = $(removeBtn);
+          $(addto).after(newInput);
+          $(addRemove).after(removeButton);
+          $("#field" + next).attr('data-source',$(addto).attr('data-source'));
+          $("#count").val(next);  
+          
+              $('.remove-me').click(function(e){
+                  e.preventDefault();
+                  var fieldNum = this.id.charAt(this.id.length-1);
+                  var fieldID = "#field" + fieldNum;
+                  $(this).remove();
+                  $(fieldID).remove();
+              });
+      });
+      
+      $('.remove-poll').click(function () {
+        var answer = confirm ("Are you sure you want to delete this poll?");
+        if (answer) {
+          var divId = "#" + $(this).attr('id');  // get the id of the button (which is the same as the parent div) 
+          
+          $.ajax({
+              url: $(this).attr('data-button'), //retrieving this value from the info stored locally in "data-button" value button tag below
+              type: 'DELETE',
+              dataType: 'json',
+              data: $(this).attr('data-button'),
+              success: function (result) {
+                console.log(result);
+                if(result.status == 200){
+                  console.log("divId", divId);
+                  $(divId).hide();
+                }
+              },
+              error: function(result){
+                  console.log(result);
+              }
+          });
+        }
+      });
+      
+    });
+  
+block body
+  div.row
+    div.col-sm-6
+      div.page-header.bar-seperator2
+        h1.mypolls My Polls
+        if !noPolls
+          p.info Click on a poll below to see the results
+          div.list-group
+            // the following for/each statment is explained here: http://jade-lang.com/reference/iteration/
+            // all the following #{val} and #{index} variables are Jade's method of accessing local variables
+            // index.js performs the db query and the results are sent as an object called 'polls' 
+            each val, index in polls
+              div(id='#{val}')
+                p.list-group-item-text(class='mypoll-results'): a.list-group-item(href='#{val}') #{index}
+                button(class='btn btn-default remove-poll' id='#{val}' data-button='#{val}' title="Delete this poll?") Delete
+        else
+          p.lead You haven't created any polls yet
+          
+    div.col-sm-6
+      div.page-header.bar-seperator
+        h1.mypolls Create Poll
+        div.container
+          div.row
+            form.input-append(action='', method='post')
+              input(type='hidden' name="_csrf" value="#{csrfToken}")
+              input(type="hidden" name="count" value="1")
+              div.control-group(id='question')
+                label.control-group(for='question') What's your Poll Question?:
+                div.controls
+                  div#field
+                    input(id='question',type='text',value='',placeholder='Type your question here',name='question')
+              div.control-group(id="fields")
+                  label.control-label(for="field1") Add Your Answers Below
+                  div.controls
+                    div#field
+                      input(autocomplete="off" class="input" id="field0" name="answer" type="text" placeholder="Type your first answer here" data-items="8")
+                  div.controls(id="profs")
+                    div#field
+                      input(autocomplete="off" class="input" id="field1" name="answer1" type="text" placeholder="Type your second answer here" data-items="8")
+                      button#b1(class="btn btn-success add-more" type="button") +
+                    small.instructions Press + to add another form field
+              input(type='submit',class='btn btn-primary form-submit',value='Submit',data-transition='fade', data-theme='c') 
+                      

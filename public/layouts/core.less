@@ -8,6 +8,33 @@ h1, h2 {
   letter-spacing: -1px;
 }
 
+.mypolls {
+  margin-bottom: 50px;
+}
+
+.center {
+  text-align: center;
+}
+.left {
+  text-align: left;
+}
+.mypoll-results {
+    margin-bottom: 10px;
+    display: inline-block;
+    width: 80%;
+}
+
+.poll-results {
+  margin-bottom: 10px;
+    display: inline-block;
+    width: 100%;  
+}
+
+
+.input-append {
+  display: inline-block;
+}
+
 fieldset {
   min-width: 0;
   margin-bottom: 20px;
@@ -25,10 +52,137 @@ select, textarea, input, .form-control {
   .border-left-radius(0);
 }
 
+#field {
+    width:400px;
+    margin-bottom:20px;
+}
+
+input, .form-control {
+  width: 80%;
+  height: 40px;
+  border-radius: 4px;
+  border: 2px solid #ddd;
+      padding-left: 10px;
+}
+
+.add-more, .remove-me {
+  margin-left: 2px;
+  height: 40px;
+  margin-bottom: 2px;
+  width: 34px;
+}
+
+.remove-poll {
+  margin-left: 2px;
+  height: 40px;
+  margin-bottom: 2px;
+}
+
+.bigq, .biga {
+  font-size: 40px;
+  padding-right: 20px;
+}
+
+.radio input[type="radio"] {
+  width:inherit;
+  height: inherit;
+  position: relative;
+}
+
+.radio label {
+  padding-left: 25px;
+}
+
+.leadvariation {
+  margin-bottom: -20px;
+}
+
+.alertmessage {
+  width: 100%;
+  font-size: 18px;
+}
+
+.spaceme {
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+.info {
+  font-size:18px;
+  font-weight: bold;
+}
+
+.custom {
+      width: 150%;
+      margin-left: -20px;
+}
+
+.jumbotron {
+  background: #A7C3FF!important;
+}
+
+.jumbotrongreen {
+  background: #C9E8C9!important;
+}
+
+.optionChosen {
+  font-weight: bold;
+  font-size-adjust: 20%
+}
+
+.builtby {
+  font-size:11px;
+  color:#431c5d;
+  border-top:none!important;
+}
+.builtby>p {
+  font-style: italic;
+  line-height: 9px;
+}
+
+.footer a {
+  color: #a7c3ff!important;
+}
+
+.homebutton {
+  margin-right: 10px;
+}
+
+.instructions {
+  position: relative;
+  top: -20px;
+  left: 36%;
+}
+
+.form-submit {
+  position: relative;
+  top: 40px;
+}
+
+.page-header {
+  border-bottom: none;
+}
+
+.bar-seperator {
+    border-left: 4px solid #DDDDDD;
+    padding-left: 30px;
+    position: relative;
+    left: 0;
+}
+
 .dropdown-header {
   font-weight: bold;
   text-transform: uppercase;
   padding-left: 12px;
+}
+
+.dropdown-menu {
+  text-align: right;
+  min-width: 95px;
+}
+
+.navbar-fixed-top {
+  background:#F0F3F5!important;
 }
 
 .navbar {
@@ -44,12 +198,18 @@ select, textarea, input, .form-control {
       position: absolute;
       top: 10px;
       height: 32px;
-      width: 32px;
+      // width: 32px;
+      // left:-30px;
     }
   }
   .navbar-brand-label {
     margin-left: 35px;
   }
+}
+
+.benefits { 
+  text-align: left;
+  font-size:22px;
 }
 
 .footer {
@@ -83,6 +243,15 @@ select, textarea, input, .form-control {
   }
 }
 
+.list-group-item {
+      background-color: #e6e9f0;
+}
+
+.list-group {
+  -webkit-box-shadow: none;
+  box-shadow: none; 
+}
+
 .ajax-spinner {
   position: absolute;
   z-index: 999;
@@ -98,7 +267,7 @@ select, textarea, input, .form-control {
     height: inherit;
     margin: 0;
   }
-}​
+}
 
 .force-wrap {
   white-space: pre-wrap; /* css-3 */
@@ -106,4 +275,17 @@ select, textarea, input, .form-control {
   white-space: -pre-wrap; /* Opera 4-6 */
   white-space: -o-pre-wrap; /* Opera 7 */
   word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+@media only screen and (max-width: 845px) {
+  .bar-seperator, .bar-seperator2 {
+      border-left: none;
+      padding-left: inherit;
+      position: inherit;
+  }
+
+.page-header {
+    margin-bottom: 100px;
+}  
+  
 }
