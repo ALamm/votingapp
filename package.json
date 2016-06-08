@@ -3,7 +3,7 @@
   "version": "0.18.0",
   "private": true,
   "scripts": {
-    "start": "start"
+    "start": "grunt"
   },
   "author": "Reza Akhavan <jedireza@gmail.com> (http://reza.akhavan.me/)",
   "license": "MIT",
